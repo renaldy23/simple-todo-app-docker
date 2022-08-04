@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  todo-postgres:
+    image: postgres
+    ports:
+      - 6000:5432
+    environment:
+      - POSTGRES_USER=pgsql
+      - POSTGRES_PASSWORD=rahasia
+      - POSTGRES_DB=todo
+  todo-backend:
+    build: ./
+    ports:
+      - 3000:3000
+    environment:
+      - DB_HOST=todo-postgres
+      - DB_PORT=5432
+      - DB_USERNAME=pgsql
+      - DB_PASSWORD=rahasia
+      - DB_NAME=todo
+    depends_on:
+      - todo-postgres
